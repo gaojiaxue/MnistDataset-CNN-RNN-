@@ -13,7 +13,7 @@ y=Weights*x_data+biases
 loss=tf.reduce_mean(tf.square(y-y_data))
 optimizer=tf.train.GradientDescentOptimizer(0.5)
 train=optimizer.minimize(loss)
-#init structure
+#init variables
 init=tf.initialize_all_variables()
 #
 
