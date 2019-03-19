@@ -11,6 +11,7 @@ def add_layer(inputs,in_size,out_size,activation_function=None):
         outputs=activation_function(Wx_plus_b)
     return outputs
 #assume data
+#[:,np.newaxis]make matrix shape changed
 x_data=np.linspace(-1,1,300)[:,np.newaxis]
 noise=np.random.normal(0,0.05,x_data.shape)
 y_data=np.square(x_data)-0.5+noise
