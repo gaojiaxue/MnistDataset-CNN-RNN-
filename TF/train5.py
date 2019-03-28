@@ -36,6 +36,7 @@ with tf.name_scope('Inputs'):
     ys = tf.placeholder(tf.float32, [None, 1], name='y_input')
 # first layer
 l1 = add_layer(xs,1,10,1,activation_function=tf.nn.relu)
+#second layer
 prediction = add_layer(l1,10,2,1,activation_function=None)
 # reduction_indices[0]means push row in to one ,[1]means push column into one, [0,1]or [1,0]means push to a point
 with tf.name_scope('loss'):
