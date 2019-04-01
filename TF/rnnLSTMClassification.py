@@ -34,14 +34,15 @@ class LSTMRNN(object):
         with tf.name_scope('train'):
             self.train_op = tf.train.AdamOptimizer(LR).minimize(self.cost)
    def add_input_layer(self, ):
+     #xs=>(100,28*28)
      l_in_x=tf.reshape(self.xs,[-1,self.n_steps],name='inputx')
-     #(100*28,28)
+     #l_in-x=>(100*28,28)
      Ws_in=self._weight_variable([self.n_steps,self.cell_size])
      bs_in=self._bias_variable([self.cell_size,])
      l_in_y=tf.matmul(l_in_x,Ws_in)+bs_in
-       #(100*28,128)
+     #l_in_y=>(100*28,128)
      self.l_in_y=tf.reshape(l_in_y,[-1,self.n_steps,self.cell_size],name='inputx2')
-     #(100,28,128)
+     #l_in_y=>(100,28,128)
    def add_cell(self):
       lstm_cell=tf.contrib.rnn.BasicLSTMCell(self.cell_size,forget_bias=1.0,state_is_tuple=True)
       self.cell_init_state=lstm_cell.zero_state(self.batch_size,dtype=tf.float32)
@@ -50,7 +51,11 @@ class LSTMRNN(object):
       )
 
    def add_output_layer(self):
-     #(100)
+     #cell_outputs=[BATCH_SIZE,N_STEPS,CELL_SIZE]
+     #state=[BATCH_SIZE,CELL_SIZE]
+     #use transpose to exchange dimension 
+     #use unstack to break down
+     #get the last one(state[1] OR output[-1])
       l_out_x=tf.unstack(tf.transpose(self.cell_outputs,[1,0,2]))
       Ws_out=self._weight_variable([self.cell_size,self.n_classes])
       bs_out=self._bias_variable([self.n_classes])
