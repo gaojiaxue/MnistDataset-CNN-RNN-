@@ -68,6 +68,7 @@ sess.run(init)
 for i in range(1000):
     # use minibatch dataset to train, each batch contains 100 data
     batch_xs, batch_ys = mnist.train.next_batch(100)
+   
     sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys})
     if i % 50 == 0:
         #show the train result
